@@ -15,5 +15,5 @@ if (process.env.NODE_ENV == 'dev') {
     //es produccion
     urlDB = 'mongodb+srv://florlangosta:T6z4j2JGVaRqynLp@cluster0-cptgb.mongodb.net/cafe';
 }
-urlDB = 'mongodb+srv://florlangosta:T6z4j2JGVaRqynLp@cluster0-cptgb.mongodb.net/cafe';
+
 process.eventNames.URLDB = urlDB;
