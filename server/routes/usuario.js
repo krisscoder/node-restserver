@@ -3,8 +3,9 @@ const app = express();
 const bcrypt = require('bcrypt'); //modulo para encrytar 
 const _ = require('underscore'); //lo vamos a usar para filtrar valores devueltos
 const Usuario = require('../models/usuario'); //mi modelo de usuario
+const { verificaToken } = require('../middlewares/autenticacion');
 
-app.get('/usuario', function(req, res) {
+app.get('/usuario', verificaToken, (req, res) => {
 
     let desde = req.query.desde || 0;
     let limite = req.query.limite || 5;
@@ -36,7 +37,7 @@ app.get('/usuario', function(req, res) {
 });
 
 //crea usuario
-app.post('/usuario', function(req, res) {
+app.post('/usuario', verificaToken, (req, res) => {
     let body = req.body; //recibe parametros de la peticion y arma el objeto Body
 
     let usuario = new Usuario({
@@ -64,7 +65,7 @@ app.post('/usuario', function(req, res) {
 });
 
 //actualiza un  usuario
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', verificaToken, (req, res) => {
     let id = req.params.id; //recibe parametro "id" desde la llamada a la API
     let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']); //filtra el body y deja solo estos campos
 
@@ -77,7 +78,7 @@ app.put('/usuario/:id', function(req, res) {
             });
         }
         res.json({
-            okd: true,
+            ok: true,
             usuario: usuarioDB
         })
     })
@@ -85,7 +86,7 @@ app.put('/usuario/:id', function(req, res) {
 });
 
 //elimina un usuario
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', verificaToken, (req, res) => {
     let id = req.params.id;
     //Usuario.findByIdAndRemove(id, (err, usuarioBorrado) => { //borra litearlmente el registro
 

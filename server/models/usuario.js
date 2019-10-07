@@ -41,7 +41,7 @@ let usuarioSchema = new Schema({
     }
 });
 
-//eliminamos el passwords dek objeto JSON que va devolver luego de crear el usuario
+//eliminamos el passwords del objeto JSON que va devolver luego de crear el usuario o login
 usuarioSchema.methods.toJSON = function() {
     let user = this;
     let userObject = user.toObject();
